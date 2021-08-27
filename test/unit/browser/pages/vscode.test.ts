@@ -75,6 +75,18 @@ describe("vscode", () => {
 
       expect(nlsConfig._resolvedLanguagePackCoreLocation).not.toBe(undefined)
       expect(nlsConfig.loadBundle).not.toBe(undefined)
+      // TODO@jsjoeio write the tests here
+      // 1. call nlsConfig.loadBundle()
+      // 2. check that fetch was called
+      // 3. check that the callback was called and has the right json
+      // 4. call it again and calls the callback with the cached json
+      /*
+      A couple unknowns still...
+
+      I need to figure out how to mock the fetch call.
+
+      Once I do that, I can write the tests.
+      */
 
       _document.body.removeChild(mockElement)
     })
