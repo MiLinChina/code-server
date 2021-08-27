@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+import fetchMock from "jest-fetch-mock"
 import { JSDOM } from "jsdom"
 import {
   getNlsConfiguration,
@@ -20,6 +21,11 @@ describe("vscode", () => {
       // We use underscores to not confuse with global values
       const { window: _window } = new JSDOM()
       _document = _window.document
+      fetchMock.enableMocks()
+    })
+
+    afterEach(() => {
+      fetchMock.resetMocks()
     })
 
     it("should throw an error if no nlsConfigElement", () => {
@@ -75,18 +81,15 @@ describe("vscode", () => {
 
       expect(nlsConfig._resolvedLanguagePackCoreLocation).not.toBe(undefined)
       expect(nlsConfig.loadBundle).not.toBe(undefined)
+
       // TODO@jsjoeio write the tests here
       // 1. call nlsConfig.loadBundle()
       // 2. check that fetch was called
       // 3. check that the callback was called and has the right json
+      // see https://www.npmjs.com/package/jest-fetch-mock#usage
+      // see https://www.leighhalliday.com/mock-fetch-jest
+      fetchMock.mockOnce(JSON.stringify({ key: "hello world" }))
       // 4. call it again and calls the callback with the cached json
-      /*
-      A couple unknowns still...
-
-      I need to figure out how to mock the fetch call.
-
-      Once I do that, I can write the tests.
-      */
 
       _document.body.removeChild(mockElement)
     })
