@@ -73,6 +73,7 @@ export function getNlsConfiguration(_document: Document, base: string) {
     type LoadBundleCallback = (_: undefined, result?: string) => void
 
     nlsConfig.loadBundle = (bundle: string, _language: string, cb: LoadBundleCallback): void => {
+      // TODO@jsjoeio write tests for here to END
       const result = bundles[bundle]
       if (result) {
         return cb(undefined, result)
@@ -84,6 +85,7 @@ export function getNlsConfiguration(_document: Document, base: string) {
         .then((json) => {
           bundles[bundle] = json
           cb(undefined, json)
+          // END here
         })
         .catch(cb)
     }
@@ -142,6 +144,7 @@ export function getConfigurationForLoader({ nlsConfig, options, _window }: GetLo
     recordStats: true,
     trustedTypesPolicy: (_window as FixMeLater).trustedTypes?.createPolicy("amdLoader", {
       createScriptURL(value: string): string {
+        // TODO@jsjoeio get code coverage for line below
         return _createScriptURL(value, window.location.origin)
       },
     }),
